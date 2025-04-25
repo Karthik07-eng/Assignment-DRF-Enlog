@@ -1,0 +1,7 @@
+- Use Django Channels to notify users of order status updates:
+
+# consumers.py
+from channels.generic.websocket import AsyncWebsocketConsumer
+from .models import Order
+
+class OrderConsumer
