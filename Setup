@@ -1,0 +1,35 @@
+- Install Django, Django REST Framework, and other required packages:
+
+bash
+pip install django djangorestframework djangorestframework-simplejwt psycopg2-binary redis channels-redis
+
+- Create a new Django project and app:
+
+bash
+django-admin startproject ecommerce_project
+cd ecommerce_project
+python manage.py startapp api
+
+- Configure PostgreSQL as the database and Redis for caching in settings.py:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ecommerce_db',
+        'USER': 'ecommerce_user',
+        'PASSWORD': 'ecommerce_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "ecommerce"
+    }
+}
