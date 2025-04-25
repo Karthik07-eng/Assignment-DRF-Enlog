@@ -1,0 +1,15 @@
+- Use Redis to cache product and category data:
+
+# utils.py
+from django.core.cache import cache
+
+def cache_product_list():
+    products = Product.objects.all()
+    cache.set('product_list', products, 3600)  # cache for 1 hour
+
+def get_cached_product_list():
+    products = cache.get('product_list')
+    if products is None:
+        products = Product.objects.all()
+        cache.set('product_list', products, 3600)
+    return products
